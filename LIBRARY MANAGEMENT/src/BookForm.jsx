@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addBook } from "./actions";
 
 const BookForm = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [isbn, setIsbn] = useState(0);
+  const [isbn, setIsbn] = useState("");
 
-  const addBook = () => {
-    dispatch({
-      type: "ADD_BOOK",
-      payload: { title, author, isbn: parseFloat(isbn) },
-    });
+  const bookAdd = () => {
+    dispatch(addBook({ title, author, isbn: parseFloat(isbn) }));
+
     setTitle("");
     setAuthor("");
-    setIsbn(0);
+    setIsbn("");
   };
   return (
     <>
@@ -36,7 +35,7 @@ const BookForm = () => {
         value={isbn}
         onChange={(e) => setIsbn(e.target.value)}
       />
-      <button onClick={addBook}>Add Book</button>
+      <button onClick={bookAdd}>Add Book</button>
     </>
   );
 };
